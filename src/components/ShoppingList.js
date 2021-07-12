@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import InsertForm from "./InsertForm";
+import axios from "axios";
 
 export default function ShoppingList() {
   // Fake data
@@ -14,6 +15,8 @@ export default function ShoppingList() {
 
   function loadItems() {
     // Get items from back-end and update state
+    axios.get("http://localhost:4000/list")
+    .then(r => setItems(r.data))
   }
 
   return (
@@ -21,7 +24,7 @@ export default function ShoppingList() {
       <InsertForm onAddItem={loadItems} />
       <List>
         {items.map((item) => (
-          <li key={item.id}>{item.text}</li>
+          <li key={item.id}>{item.item}</li>
         ))}
       </List>
     </>

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
+import axios from "axios";
 
 export default function InsertForm({ onAddItem }) {
   const [text, setText] = useState("");
@@ -9,9 +10,13 @@ export default function InsertForm({ onAddItem }) {
 
     const newItem = { text };
     // Save item to server
+    axios.post("http://localhost:4000/list", newItem)
+      .then(() => {
+        setText("");
+        onAddItem();
+      })
 
-    setText("");
-    onAddItem();
+
   }
 
   return (
